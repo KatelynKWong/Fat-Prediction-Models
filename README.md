@@ -51,6 +51,10 @@ Next, I for-looped through the remaining feature columns and fit a LinearRegress
 
 I then decided to use the top three features that had the highest r^2 linear regression score in my baseline model: `calories`, `saturated_fat` and `protein`. All of these features are continuous quantitative features, which I believed would help accurately predict a recipe's total fat content using regression. I ended up using each feature's original values through a pipeline that preserves the original data without encoding or transforming the data; the main reason is that when looking at the regression scatterplots, the data values seemed to follow a linear regression pattern with relatively evenly spread out residuals pattern.
 
+<iframe src="assets/cal_v_fat.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/sfat_v_fat.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/prot_v_fat.html" width=800 height=600 frameBorder=0></iframe>
+
 Overall, the model seemed to perform satisfactorily. I evaluated it using the RMSE and r^2 values for both the training and testing data sets. The RMSE values I calculated for the training and testing data sets were `22.955` and `22.235` respectively. The r^2 values I calculated for the training and testing data sets were `0.8312` and `0.8298`. The r^2 values show that there is a moderately strong linear correlation between the features `calories`, `saturated_fat` and `protein` that I included in my model and the response variable `total_fat`.
 
 ---
@@ -59,7 +63,8 @@ Overall, the model seemed to perform satisfactorily. I evaluated it using the RM
 For my final model, I wanted to improve on the prediction accuracy of my base model. 
 
 Here, I decided to add `average_rating` as a predictive feature to my model because in Project 3, I found that there was a statistically signficant correlation between `average_rating` and `total_fat` (see graph below). However, I decided to binarize the `average_ratings` column because the distribution of ratings was left skewed with the majority of the ratings being 5 (shown in the graph below). So I chose to set a threshold level of 4 on the Binarizer to split the ratings data into higher rated recipes (4, 5) and lower rated recipes (1, 2, 3)
-*** insert graph of distribution of average_ratings***
+
+<iframe src="assets/arating_v_fat.html" width=800 height=600 frameBorder=0></iframe>
 
 I also decided to add `carbs` as a feature to my model. When performing the LinearRegression on `carbs` and `total_fat` earlier, the r^2 value revealed how there was a positive linear correlation between `carbs` and `total_fat` (see `r_squared_dict` above). However, since the r^2 values for both `protein` and `carbs` were below 0.3, I decided to transform the feature columns using std_scaler to normalize the values and eliminate any data redundancy and inconsistent dependency. For the features `calories` and `saturated_fat`, I chose to leave the values untransformed so that the regression model would receive the raw data since both are strongly positively correlated with `total_fat`.
 
